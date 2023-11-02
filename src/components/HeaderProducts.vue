@@ -4,12 +4,11 @@
     <div>
       <Button
         type="button"
-        :label="!seeCartBool ? 'STORE' : 'SHOPPING CART'"
+        label="STORE"
         severity="primary"
       />
     </div>
     <Button
-      v-if="!seeCartBool"
       type="button"
       label="Shopping cart"
       icon="pi pi-shopping-cart"
@@ -18,16 +17,7 @@
       badgeClass="p-badge-info"
       @click="seeCart()"
     />
-    <Button
-      v-else
-      type="button"
-      label="Back to store"
-      icon="pi pi-arrow-left"
-      severity="secondary"
-      :badge="lenProducts.toString()"
-      badgeClass="p-badge-info"
-      @click="hideCart()"
-    />
+
   </div>
 </template>
 
@@ -36,7 +26,6 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 export default {
   props: {
-    seeCartBool: Boolean,
   },
   components: {
 

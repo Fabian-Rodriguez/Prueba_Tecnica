@@ -10,7 +10,6 @@ export default {
     TableProducts,
   },
   setup() {
-    const seeCartBool = ref(false);
     const showCart = ref(false);
     function seeCart() {
       showCart.value = true;
@@ -20,7 +19,6 @@ export default {
     }
 
     return {
-      seeCartBool,
       showCart,
       seeCart,
       hideCart,
@@ -33,7 +31,6 @@ export default {
   <SideBar :visibleLeft="showCart" @hideCart="hideCart" />
   <div class="mb-4">
     <HeaderProducts
-      :seeCartBool="seeCartBool"
       @hideCart="hideCart()"
       @seeCart="seeCart()"
     />

@@ -36,6 +36,7 @@ app.component('Avatar', Avatar);
 app.component('Badge', Badge);
 app.component('Toast', Toast);
 app.component('Card', Card);
+app.component('Dropdown', Dropdown);
 app.component('Sidebar', Sidebar);
 
 app.mount('#app');

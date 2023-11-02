@@ -216,18 +216,6 @@ export default {
       });
     }
 
-    function removeToCart(item) {
-      store.commit("deleteProductToCar", { item: item.id });
-      toast.add({
-        severity: "success",
-        summary: "Product was deleted successfully",
-        life: 3000,
-      });
-      /* if (seeCartBool.value) {
-        seeCart();
-      } */
-    }
-
     const lenProducts = computed(() => store.getters["lenProducts"]);
     const idsProducts = computed(() => store.getters["idsProducts"]) || [];
 
@@ -254,7 +242,6 @@ export default {
       lenProducts,
       idsProducts,
       verifiAdded,
-      removeToCart,
       productAdded,
     };
   },
