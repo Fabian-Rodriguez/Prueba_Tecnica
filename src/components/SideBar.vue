@@ -58,7 +58,6 @@
       </div>
     </div>
     <v-spacer></v-spacer>
-    <Button label="Registrar" icon="pi pi-user" class="w-10rem"></Button>
   </Sidebar>
 </template>
 
