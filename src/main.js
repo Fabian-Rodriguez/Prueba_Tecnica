@@ -19,9 +19,10 @@ import Badge from "primevue/badge";
 import Toast from "primevue/toast";
 import Card from "primevue/card";
 import Sidebar from "primevue/sidebar";
+import router from "./router.js";
 
 const app = createApp(App);
-
+app.use(router);
 app.use(store);
 app.use(PrimeVue);
 app.use(ToastService);
