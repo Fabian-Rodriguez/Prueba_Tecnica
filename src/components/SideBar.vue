@@ -1,4 +1,5 @@
 <template>
+  <toast />
   <Sidebar :visible="visibleLeft" position="right" class="w-full md:w-20rem lg:w-30rem">
     <Button class="mt-3" icon="pi pi-times" @click="hideBar()" />
 
@@ -14,8 +15,20 @@
       <Card class="mt-3">
         <template #title> Total </template>
         <template #content>
-          <p class="m-0">Total products: {{ lenProducts }}</p>
-          <p class="m-0">Total price: {{ cartTotalPrice }}</p>
+          <p class="m-0">Saldo: ${{ parseFloat(moneyRemaining).toFixed(2) }}</p>
+          <p class="m-0">Cantidad Productos: {{ lenProducts }}</p>
+          <p class="m-0">Precio Total: ${{ parseFloat(cartTotalPrice).toFixed(2) }}</p>
+          <p :class="`m-0 ${leftMoney < 0 ? 'text-red-500' : ''}`">
+            Saldo Restante: ${{ parseFloat(leftMoney).toFixed(2) }}
+          </p>
+
+          <Button
+            v-if="leftMoney > 0"
+            label="Comprar"
+            @click="buyAll()"
+            icon="pi pi-shopping-cart"
+            class="mt-3 w-10rem ml-1"
+          ></Button>
         </template>
       </Card>
     </div>
@@ -63,7 +76,8 @@
 
 <script>
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { computed, ref } from "vue";
+import { useToast } from "primevue/usetoast";
 
 export default {
   props: {
@@ -71,11 +85,17 @@ export default {
   },
   components: {},
   setup(props, { emit }) {
+    const moneyRemaining = ref(1000);
     const store = useStore();
-
+    const toast = useToast();
     const storeProducts = computed(() => store.getters["products"]);
     const lenProducts = computed(() => store.getters["lenProducts"]);
     const cartTotalPrice = computed(() => store.getters["cartTotalPrice"]);
+    const leftMoney = computed(
+      () =>
+        parseFloat(moneyRemaining.value).toFixed(2) -
+        parseFloat(cartTotalPrice.value).toFixed(2)
+    );
 
     function hideBar() {
       emit("hideCart", true);
@@ -84,12 +104,24 @@ export default {
       store.commit("deleteProductToCar", { item: item.id });
     }
 
+    function buyAll() {
+      store.commit("deleteAllProducts");
+      toast.add({
+        severity: "success",
+        summary: "Productos comprados satisfactoriamente",
+        life: 3000,
+      });
+    }
+
     return {
       hideBar,
       storeProducts,
       lenProducts,
       cartTotalPrice,
       removeToCart,
+      buyAll,
+      moneyRemaining,
+      leftMoney,
     };
   },
 };

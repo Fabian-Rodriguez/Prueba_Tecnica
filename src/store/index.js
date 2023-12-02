@@ -8,6 +8,9 @@ export default createStore({
     },
   },
   mutations: {
+    deleteAllProducts(state) {
+      state.products = []
+    },
     updateName(state, name) {
       state.userInfo.name = name
     },
